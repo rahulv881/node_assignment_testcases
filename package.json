@@ -1,0 +1,12 @@
+{
+  "name": "node_assignment",
+  "version": "1.0.0",
+  "description": "Node testcases assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "rahul",
+  "license": "ISC",
+  "dependencies": {}
+}
