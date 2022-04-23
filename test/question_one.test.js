@@ -31,57 +31,72 @@ testCase(
       temp = "";
     });
     testCase("Valid input test cases", function () {
-      assertions("Should return(excluding quotes): '1' ", async function () {
-        const input = "1";
-        const { isValid } = await validateInput(input);
-        assert.equal(isValid, true);
-        const output = qs.getOutput(input);
-        const expectedOutput = "1";
-        assert.equal(output, expectedOutput);
-      });
+      assertions(
+        "assert.equal(isValid, true) and should return(excluding quotes): '1' ",
+        async function () {
+          const input = "1";
+          const { isValid } = await validateInput(input);
+          assert.equal(isValid, true);
+          const output = qs.getOutput(input);
+          const expectedOutput = "1";
+          assert.equal(output, expectedOutput);
+        }
+      );
 
       temp = "9".repeat(100);
-      assertions(`Should return: ${temp} `, async function () {
-        const input = "9".repeat(100);
-        const { isValid } = await validateInput(input);
-        assert.equal(isValid, true);
-        const output = qs.getOutput(input);
-        const expectedOutput = input;
-        assert.equal(output, expectedOutput);
-      });
+      assertions(
+        `assert.equal(isValid, true) and should return: ${temp} `,
+        async function () {
+          const input = "9".repeat(100);
+          const { isValid } = await validateInput(input);
+          assert.equal(isValid, true);
+          const output = qs.getOutput(input);
+          const expectedOutput = input;
+          assert.equal(output, expectedOutput);
+        }
+      );
 
-      assertions("Should return(excluding quotes): '-1' ", async function () {
-        const input = "-1";
-        const { isValid } = await validateInput(input);
-        assert.equal(isValid, true);
-        const output = qs.getOutput(input);
-        const expectedOutput = "-1";
-        assert.equal(output, expectedOutput);
-      });
+      assertions(
+        "assert.equal(isValid, true) and should return(excluding quotes): '-1' ",
+        async function () {
+          const input = "-1";
+          const { isValid } = await validateInput(input);
+          assert.equal(isValid, true);
+          const output = qs.getOutput(input);
+          const expectedOutput = "-1";
+          assert.equal(output, expectedOutput);
+        }
+      );
 
       // * Negative integers are also integers so the must also pass the test case.
       temp = "-" + "9".repeat(99);
-      assertions(`Should return: ${temp} `, async function () {
-        const input = "-" + "9".repeat(99);
-        const { isValid } = await validateInput(input);
-        assert.equal(isValid, true);
-        const output = qs.getOutput(input);
-        const expectedOutput = input;
-        assert.equal(output, expectedOutput);
-      });
+      assertions(
+        `assert.equal(isValid, true) and should return: ${temp} `,
+        async function () {
+          const input = "-" + "9".repeat(99);
+          const { isValid } = await validateInput(input);
+          assert.equal(isValid, true);
+          const output = qs.getOutput(input);
+          const expectedOutput = input;
+          assert.equal(output, expectedOutput);
+        }
+      );
 
-      assertions("Should return(excluding quotes): '1+2' ", async function () {
-        const input = "1+2";
-        const { isValid } = await validateInput(input);
-        assert.equal(isValid, true);
-        const output = qs.getOutput(input);
-        const expectedOutput = "1+2";
-        assert.equal(output, expectedOutput);
-      });
+      assertions(
+        "assert.equal(isValid, true) and should return(excluding quotes): '1+2' ",
+        async function () {
+          const input = "1+2";
+          const { isValid } = await validateInput(input);
+          assert.equal(isValid, true);
+          const output = qs.getOutput(input);
+          const expectedOutput = "1+2";
+          assert.equal(output, expectedOutput);
+        }
+      );
 
       temp = "1+2+".repeat(24) + "1+2";
       assertions(
-        `Should return(excluding quotes): '${temp}' `,
+        `assert.equal(isValid, true) and should return(without quotes): '${temp}' `,
         async function () {
           const input = "1+2+".repeat(24) + "1+2";
           const { isValid } = await validateInput(input);
@@ -93,10 +108,10 @@ testCase(
       );
 
       assertions(
-        `Should return(excluding quotes): '${temp}' `,
+        `assert.equal(isValid, true) and should return(without quotes): '${temp}' `,
         async function () {
           const input = "1+2+".repeat(24) + "1+2";
-          const { isValid, errors } = await validateInput(input);
+          const { isValid } = await validateInput(input);
           assert.equal(isValid, true);
           const output = qs.getOutput(input);
           const expectedOutput = "1+".repeat(25) + "2+".repeat(24) + "2";
@@ -107,7 +122,7 @@ testCase(
       const a = "1".repeat(49);
       const b = "2".repeat(49);
       assertions(
-        `Should return(excluding quotes): '${a}+${b}' `,
+        `assert.equal(isValid, true) and should return(without quotes): '${a}+${b}' `,
         async function () {
           const a = "1".repeat(49);
           const b = "2".repeat(49);
@@ -121,7 +136,7 @@ testCase(
       );
 
       assertions(
-        `Should return(excluding quotes): '${b}+${a}' `,
+        `assert.equal(isValid, true) and should return(excluding quotes): '${b}+${a}' `,
         async function () {
           const a = "1".repeat(49);
           const b = "2".repeat(49);
@@ -245,7 +260,7 @@ testCase(
         "Input = '{}', assert.equal(isValid, false) and assert.equal(defaultOutput, -404",
         async function () {
           const input = "1+2.0";
-          const { isValid, errors, defaultOutput } = await validateInput(input);
+          const { isValid, defaultOutput } = await validateInput(input);
           assert.equal(isValid, false);
           assert.equal(defaultOutput, -404);
         }
@@ -255,7 +270,7 @@ testCase(
         "Input = '{}', assert.equal(isValid, false) and assert.equal(defaultOutput, -404",
         async function () {
           const input = { name: "rahul" };
-          const { isValid, errors, defaultOutput } = await validateInput(input);
+          const { isValid, defaultOutput } = await validateInput(input);
           assert.equal(isValid, false);
           assert.equal(defaultOutput, -404);
         }
@@ -267,7 +282,7 @@ testCase(
         "Input = '[]', assert.equal(isValid, false) and assert.equal(defaultOutput, -404",
         async function () {
           const input = [];
-          const { isValid, errors, defaultOutput } = await validateInput(input);
+          const { isValid, defaultOutput } = await validateInput(input);
           assert.equal(isValid, false);
           assert.equal(defaultOutput, -404);
         }
@@ -335,7 +350,7 @@ testCase(
               `Input = ${input}, assert isValid, true `,
               async function () {
                 try {
-                  const { isValid, defaultOutput } = await validateInput(input);
+                  const { isValid } = await validateInput(input);
                   assert.equal(isValid, true);
                   const output = qs.getOutput(input);
                   const expectedOutput = input;
@@ -388,7 +403,7 @@ testCase(
     testCase(
       "Boundary test cases (include both valid and invalid input test cases",
       function () {
-        assertions(`Input = '', assert isValid, true `, async function () {
+        assertions(`Input = '', assert isValid, false `, async function () {
           const input = "";
           try {
             const { isValid, defaultOutput } = await validateInput(input);
@@ -441,16 +456,19 @@ testCase(
         });
 
         temp = "4".repeat(101);
-        assertions(`Input = ${temp}, assert isValid, true `, async function () {
-          const input = "4".repeat("101");
-          try {
-            const { isValid, defaultOutput } = await validateInput(input);
-            assert.equal(isValid, false);
-            assert.equal(defaultOutput, -404);
-          } catch (e) {
-            console.log(e);
+        assertions(
+          `Input = ${temp}, assert isValid, false `,
+          async function () {
+            const input = "4".repeat("101");
+            try {
+              const { isValid, defaultOutput } = await validateInput(input);
+              assert.equal(isValid, false);
+              assert.equal(defaultOutput, -404);
+            } catch (e) {
+              console.log(e);
+            }
           }
-        });
+        );
       }
     );
 
