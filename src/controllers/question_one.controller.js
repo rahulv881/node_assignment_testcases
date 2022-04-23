@@ -16,7 +16,7 @@ class QuestionOneController {
       // TODO: Add logger here.
       return res
         .status(500)
-        .json({ data: this.defaultData, message: e.toString(), error: [] });
+        .json({ data: null, message: e.toString(), error: [] });
     }
   };
 
@@ -24,16 +24,17 @@ class QuestionOneController {
   validate = (method) => {
     try {
       return async (req, res, next) => {
-        const errors = await this.questionOneService.validate(method, req);
+        const { isValid, errors, defaultOutput } =
+          await this.questionOneService.validate(method, req);
 
-        if (errors.isEmpty()) {
+        if (isValid) {
           return next();
         }
 
         return res.status(400).json({
-          data: this.defaultData,
+          data: defaultOutput,
           message: "Invalid data provided, Refer error for more detail.",
-          error: errors.array(),
+          error: errors,
         });
       };
     } catch (e) {
@@ -41,7 +42,7 @@ class QuestionOneController {
       console.log(e);
       return res
         .status(500)
-        .json({ data: this.defaultData, message: e.toString(), error: [] });
+        .json({ data: null, message: e.toString(), error: [] });
     }
   };
 }
