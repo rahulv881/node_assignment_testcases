@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const questionOneService = require("../services/question_one.service");
-
+const logger = require('../../logger');
 class QuestionOneController {
   constructor() {
     this.questionOneService = questionOneService;
@@ -11,9 +11,10 @@ class QuestionOneController {
   getOutput = (req, res, next) => {
     try {
       const output = this.questionOneService.getOutput(req.body.input);
+
       return res.json({ data: output, message: "success", error: [] });
     } catch (e) {
-      // TODO: Add logger here.
+      logger.error(`Dated: ${Date.now()}, errors: ${e.message}`);
       return res
         .status(500)
         .json({ data: null, message: e.toString(), error: [] });
@@ -31,6 +32,7 @@ class QuestionOneController {
           return next();
         }
 
+        logger.error(`Dated: ${Date.now()}, errors: ${JSON.stringify(errors)}`);
         return res.status(400).json({
           data: defaultOutput,
           message: "Invalid data provided, Refer error for more detail.",
@@ -38,7 +40,7 @@ class QuestionOneController {
         });
       };
     } catch (e) {
-      // TODO: Add logger here.
+      logger.error(`Dated: ${Date.now()}, errors: ${e.message}`);
       console.log(e);
       return res
         .status(500)

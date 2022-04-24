@@ -11,7 +11,7 @@ class QuestionOneController {
       const output = this.questionTwoService.getOutput(req.body.input);
       return res.json({ data: output, message: "success", error: [] });
     } catch (e) {
-      // TODO: Add logger here.
+      logger.error(`Dated: ${Date.now()}, errors: ${e.message}`);
       return res
         .status(500)
         .json({ data: null, message: e.toString(), error: [] });
@@ -28,7 +28,7 @@ class QuestionOneController {
         if (isValid) {
           return next();
         }
-
+        logger.error(`Dated: ${Date.now()}, errors: ${JSON.stringify(errors)}`);
         return res.status(400).json({
           data: defaultOutput,
           message: "Invalid data provided, Refer error for more detail.",
@@ -36,8 +36,7 @@ class QuestionOneController {
         });
       };
     } catch (e) {
-      // TODO: Add logger here.
-      console.log(e);
+      logger.error(`Dated: ${Date.now()}, errors: ${e.message}`);
       return res
         .status(500)
         .json({ data: null, message: e.toString(), error: [] });
