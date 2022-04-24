@@ -1,5 +1,6 @@
 const express = require("express");
 const questionOneController = require("../controllers/question_one.controller");
+const questionTwoController = require("../controllers/question_two.controller");
 let app = express.Router();
 
 app.post(
@@ -8,8 +9,10 @@ app.post(
   questionOneController.getOutput
 );
 
-app.get("/two", function (req, res) {
-  res.json({ message: "success", data: "Questions two" });
-});
+app.post(
+  "/two",
+  questionTwoController.validate("getOutput"),
+  questionTwoController.getOutput
+);
 
-module.exports = app;
+module.exports = app; // * For testing (if required).
